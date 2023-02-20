@@ -3,7 +3,6 @@
 
 sf::RectangleShape get_rectangle(int i, int j, bool filled);
 
-
 void Grid::reset()
 {
    for (int i=0; i<NUM_VERTICAL_TILES; i++)
@@ -53,7 +52,6 @@ void Grid::update()
       {
          int num_adjacent_cells = check_nearby_cells(i, j);
          
-         
          if (Grid::array[i][j])
          {
             if (num_adjacent_cells <2 or num_adjacent_cells>3) {new_array[i][j] = false;}
@@ -64,8 +62,6 @@ void Grid::update()
             if (num_adjacent_cells == 3) {new_array[i][j] = true;}
             else {new_array[i][j] = false;}
          }
-         //std::cout << i << ", " << j ;
-         //std::cout <<" " <<std::boolalpha << new_array[i][j] << " " << std::endl;
       }
       
    }
@@ -74,9 +70,7 @@ void Grid::update()
       for (int j=0; j<NUM_HORIZONTAL_TILES; j++)
       {
          Grid::array[i][j] = new_array[i][j];
-         //std::cout << std::boolalpha << new_array[i][j] << " ";
       }
-      //std::cout << std::endl;
    }
 
 }
@@ -85,7 +79,6 @@ bool is_valid(int i, int j)
 {
    return (i>=0 and j>=0 and i < NUM_VERTICAL_TILES and j < NUM_HORIZONTAL_TILES);
 }
-
 
 int Grid::check_nearby_cells(int i, int j)
 {
@@ -96,16 +89,15 @@ int Grid::check_nearby_cells(int i, int j)
             if (x == 0 and y == 0) {
                 continue;
             }
-            
             if (is_valid(i + x, j + y) and Grid::array[i + x][j + y]) {
                 count++;
             }
         }
     }
-    //std::cout << count << std::endl;
     return count;
-
 }
+
+
 
 
 
