@@ -1,7 +1,6 @@
 #include "Grid.hpp"
 #include <iostream>
 
-sf::RectangleShape get_rectangle(int i, int j, bool filled);
 
 void Grid::reset()
 {
@@ -11,37 +10,10 @@ void Grid::reset()
       {
          Grid::array[i][j] = false;
       }
-
    }
 }
 
-void Grid::print()
-{
 
-   for (int i=0; i<NUM_VERTICAL_TILES; i++)
-   {
-      for (int j=0; j<NUM_HORIZONTAL_TILES; j++)
-      {
-         std::cout << std::boolalpha << array[i][j] << " ";
-      }
-      std::cout << std::endl;
-   }
-}
-
-void Grid::draw(sf::RenderWindow &window)
-{
-   for (int i=0; i<NUM_VERTICAL_TILES; i++)
-      {
-         for (int j=0; j<NUM_HORIZONTAL_TILES; j++)
-         {
-            
-            bool filled = Grid::array[i][j];
-            sf::RectangleShape rectangle = get_rectangle(i, j, filled);
-            window.draw(rectangle);
-            
-         }
-      }
-}
 
 void Grid::update()
 {
@@ -59,11 +31,9 @@ void Grid::update()
          }
          else
          {
-            if (num_adjacent_cells == 3) {new_array[i][j] = true;}
-            else {new_array[i][j] = false;}
+            new_array[i][j] = (num_adjacent_cells == 3);  
          }
       }
-      
    }
    for (int i=0; i<NUM_VERTICAL_TILES; i++)
    {
@@ -98,24 +68,6 @@ int Grid::check_nearby_cells(int i, int j)
 }
 
 
-
-
-
-sf::RectangleShape get_rectangle(int i, int j, bool filled)
-{
-   sf::RectangleShape rectangle;
-   rectangle.setPosition(j*TILE_SIZE, i*TILE_SIZE);
-   rectangle.setSize(sf::Vector2f(TILE_SIZE, TILE_SIZE));
-   if (filled)
-   {
-      rectangle.setFillColor(sf::Color::White);
-   }else{
-      rectangle.setFillColor(sf::Color::Black);
-   }
-   rectangle.setOutlineColor(sf::Color::Red);
-   rectangle.setOutlineThickness(1);
-   return rectangle;
-}
 
 
 
